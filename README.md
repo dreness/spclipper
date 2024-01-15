@@ -33,7 +33,7 @@ South Park Clipper is a small Python / Flask application with the following feat
 1. Create database
 
     ```bash
-    python spclipper/database_setup.py.py
+    python spclipper/database_setup.py
     ```
 
 ## Use
