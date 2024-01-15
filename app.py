@@ -119,7 +119,7 @@ def concatenate_audio_files(audio_files):
     concatenated_audio = []
     for file_path, start_time, end_time, phrase_text in audio_files:
         # Load audio file and extract relevant segment
-        data, samplerate = sf.read(file_path, start=start_time, stop=end_time)
+        data, samplerate = sf.read(file_path, start=start_time-150, stop=end_time+150)
         concatenated_audio.append(data)
     # Concatenate audio segments and store in a temporary file under the static directory
     final_audio = np.concatenate(concatenated_audio, axis=0)
