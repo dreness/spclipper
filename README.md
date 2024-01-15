@@ -8,6 +8,17 @@ South Park Clipper is a small Python / Flask application with the following feat
 ## Pre-requisites
 
 * Tested with Python 3.11
+* You have some audio files in one of the [formats supported by libsndfile](http://www.mega-nerd.com/libsndfile/#Features).
+* You have some SRT files containing transcripts of those audio files.
+* The audio files and the SRT files are in the same directory.
+* Each pair of files (audio and SRT) have the same file name, except for the extension. For example:
+
+    ```plain
+    South.Park.S01E01.srt
+    South.Park.S01E01.mp3
+    South.Park.S01E02.srt
+    South.Park.S01E02.mp3
+    ```
 
 ## Installation
 
