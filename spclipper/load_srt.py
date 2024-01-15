@@ -4,7 +4,7 @@
 import pysrt
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from spclipper.database_setup import Base, Token, TokenText, AudioFile
+from database_setup import Base, Token, TokenText, AudioFile
 from datetime import datetime, date
 import sys
 # import fileinput
