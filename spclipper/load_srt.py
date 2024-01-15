@@ -70,6 +70,7 @@ def srt_to_db(srt_file):
         )
         session.add(new_token)
 
+    af.finished_processing = True
     session.commit()
 
 

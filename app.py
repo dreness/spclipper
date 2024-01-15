@@ -10,6 +10,7 @@ from collections import namedtuple
 from datetime import datetime, date, time, timedelta
 import soundfile as sf
 import numpy as np
+from glob import glob
 
 # Database setup
 DATABASE_URL = "sqlite:///spclipper/tokens.db"  # Replace with your database URL
@@ -28,6 +29,7 @@ def audio_url_for_file(file_path):
     :param file_path: Path to the audio file.
     :return: URL for the audio file.
     """
+    print(f"audio_url_for_file: file_path: {file_path}")
     return url_for('static', filename=os.path.join('audio', os.path.basename(file_path)))
 
 
@@ -54,12 +56,13 @@ def get_audio_clips(stmt):
     query = session.execute(stmt)
     for t, af in query:
         if af.finished_processing:
-            # look for an audio file with the same file name but with a .mp3 extension
-            fname_part = os.path.splitext(af.file_path)[0]
-            fp = fname_part + ".mp3"
-            # if the filename includes ".wav", remove it
-            if ".wav" in fp:
-                fp = fp.replace(".wav", "")
+            # look for an audio file with the same file base name as the SRT file
+            fpath = os.path.splitext(af.file_path)[0]
+            files = glob(f"{fpath}.*")
+            # remove any element from files that ends with ".srt"
+            files = [f for f in files if not f.endswith(".srt")]
+            # just take the first one I guess
+            fp = files[0]
             ts_from_seconds = (datetime.combine(date.min, t.timestamp_from) - datetime.min).total_seconds()
             ts_to_seconds = (datetime.combine(date.min, t.timestamp_to) - datetime.min).total_seconds()
             start_frames = timestamp_to_frame_index(ts_from_seconds, 48000)
@@ -68,52 +71,12 @@ def get_audio_clips(stmt):
             if isinstance(t, Token):
                 #print(f"token: {t}")
                 txt = t.token_text.text
-            elif isinstance(t, Phrases):
-                #print(f"phrase: {t}")
-                txt = t.phrase
             ac = AudioClip(fp, start_frames, end_frames, txt)
             #print(f"appending AudioClip: {ac}")
             audio_clips.append(ac)
     print(f"got {len(audio_clips)} audio clips")
     session.close()
     return audio_clips
-
-
-def get_audio_files_for_phrase(phrase, max_results=None, audio_file=None):
-    """
-    Get the audio files for a given phrase.
-    param phrase (string): Phrase.
-    return: List of audio files.
-    """
-    session = Session()
-    audio_files = []
-    # Query for the audio file path
-    if audio_file is not None and audio_file != '':
-        stmt = (
-            select(Phrases, AudioFile)
-            .select_from(join(Phrases, AudioFile))
-            .where(
-                and_(
-                    func.lower(Phrases.phrase).contains(phrase.lower()),
-                    AudioFile.id == audio_file
-                )
-            )
-            .limit(max_results)
-        )
-    else:
-        stmt = (
-            select(Phrases, AudioFile)
-            .select_from(join(Phrases, AudioFile))
-            .where(
-                func.lower(Phrases.phrase).contains(phrase.lower())
-            )
-            .limit(max_results)
-        )
-
-    audio_files.extend(get_audio_clips(stmt))
-    print(f"got {len(audio_files)} audio files")
-    session.close()
-    return audio_files
 
 
 def get_audio_files_for_tokens(query, max_results=None, audio_file=None):
@@ -124,7 +87,7 @@ def get_audio_files_for_tokens(query, max_results=None, audio_file=None):
     """
     session = Session()
     audio_files = []
-    print(f"get_audio_files_for_tokens: audio_file: {audio_file}")
+    print(f"get_audio_files_for_tokens: query: {query}, audio_file: {audio_file}")
 
     # Query for the audio file path
     if audio_file is not None and audio_file != '':
@@ -152,6 +115,7 @@ def get_audio_files_for_tokens(query, max_results=None, audio_file=None):
 
 
 def concatenate_audio_files(audio_files):
+    print("concatenate_audio_files")
     concatenated_audio = []
     for file_path, start_time, end_time, phrase_text in audio_files:
         # Load audio file and extract relevant segment
@@ -171,6 +135,7 @@ def create_audio():
     """
     Create an audio clip by concatenating audio files of phrases containing the given string
     """
+    print("create_audio route")
     query = request.form.get("query")
     # mode = request.form.get("mode")
     # print(f"mode: {mode}")
@@ -276,4 +241,4 @@ def send_js(path):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()

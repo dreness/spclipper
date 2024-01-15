@@ -2,3 +2,6 @@ __pycache__/*
 tokens.db
 spclipper/tokens.db
 venv
+static
+static/audio
+*.pyc

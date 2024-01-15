@@ -11,12 +11,13 @@ class AudioFile(Base):
     id = Column(Integer, primary_key=True)
     file_path = Column(String, unique=True)
     finished_processing = Column(Integer, default=0)
-    whisper_metadata = Column(JSON)
+
 
 class TokenText(Base):
     __tablename__ = 'token_text'
     id = Column(Integer, primary_key=True)
     text = Column(String, unique=True)
+
 
 class Token(Base):
     __tablename__ = 'tokens'
@@ -28,7 +29,6 @@ class Token(Base):
     offset_from = Column(Integer)
     offset_to = Column(Integer)
     token_id = Column(Integer)
-    probability = Column(Float)
     audio_file_id = Column(Integer, ForeignKey('audio_files.id'))
     audio_file = relationship("AudioFile")
 
