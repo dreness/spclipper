@@ -1,0 +1,14 @@
+Metadata-Version: 2.1
+Name: spclipper
+Version: 0.1
+Summary: Search SRT transcripts and get audio results
+Author: Andre LaBranche
+Author-email: dre@mac.com
+Keywords: audio processing,flask,web app
+Requires-Dist: Flask
+Requires-Dist: pysrt
+Requires-Dist: numpy
+Requires-Dist: sqlalchemy
+Requires-Dist: soundfile
+Requires-Dist: simplejson
+Requires-Dist: pydub

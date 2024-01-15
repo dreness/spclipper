@@ -1,0 +1,7 @@
+Flask
+pysrt
+numpy
+sqlalchemy
+soundfile
+simplejson
+pydub

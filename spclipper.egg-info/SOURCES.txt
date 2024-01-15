@@ -1,0 +1,13 @@
+README.md
+setup.py
+spclipper/__init__.py
+spclipper/create_vtt.py
+spclipper/database_setup.py
+spclipper/load_srt.py
+spclipper/populate_database.py
+spclipper.egg-info/PKG-INFO
+spclipper.egg-info/SOURCES.txt
+spclipper.egg-info/dependency_links.txt
+spclipper.egg-info/entry_points.txt
+spclipper.egg-info/requires.txt
+spclipper.egg-info/top_level.txt
