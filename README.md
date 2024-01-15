@@ -83,3 +83,9 @@ South Park Clipper is a small Python / Flask application with the following feat
 
 https://github.com/dreness/spclipper/assets/5242016/25be8f04-2ed6-42f5-8e46-a4930fac0455
 
+## Errata
+
+* Audio clips are stored in the static/audio directory. You are responsible for cleaning
+  them out periodically, etc.
+* Each clip has a unique file name including a time stamp.
+* No attempt is made to avoid creating duplicate clips.
