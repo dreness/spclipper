@@ -15,7 +15,7 @@ South Park Clipper is a small Python / Flask application with the following feat
 1. Make a virtual environment:
 
     ```bash
-    python3 -m venv -p python3.11 --prompt spclipper venv
+    python3.11 -m venv --prompt spclipper venv
     ```
 
 1. Activate the virtual environment:
@@ -31,7 +31,7 @@ South Park Clipper is a small Python / Flask application with the following feat
     ```
 
 1. Create database
-    
+
     ```bash
     python spclipper/database_setup.py.py
     ```
@@ -46,6 +46,7 @@ South Park Clipper is a small Python / Flask application with the following feat
     ```bash
     source venv/bin/activate
     ```
+
 1. Run the import script. You can pass more than one SRT file.
 
     ```bash
