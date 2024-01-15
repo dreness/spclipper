@@ -78,3 +78,8 @@ South Park Clipper is a small Python / Flask application with the following feat
     ```bash
     flask run --host 0.0.0.0 --port 8766
     ```
+
+### Demo
+
+https://github.com/dreness/spclipper/assets/5242016/25be8f04-2ed6-42f5-8e46-a4930fac0455
+
