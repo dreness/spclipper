@@ -73,8 +73,8 @@ South Park Clipper is a small Python / Flask application with the following feat
     source venv/bin/activate
     ```
 
-1. Start the web server. Omit `--port` or `--debug` if you want.
+1. Start the web server. Omit `--port` if you want.
 
     ```bash
-    flask run --host 0.0.0.0 --port 8766 --debug
+    flask run --host 0.0.0.0 --port 8766
     ```
